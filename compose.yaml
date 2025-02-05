@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  pco-discord-bridge:
+    image: python:3.9
+    container_name: pco-discord-bridge
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=true
+    command: >
+      sh -c "pip install --no-cache-dir fastapi uvicorn && python -m uvicorn ids-from-PCO:app --host 0.0.0.0 --port 8000 --reload"
+    restart: unless-stopped
